@@ -2,8 +2,8 @@
 
 Ray Camera::getRayAtPixel(float x, float y)
 {
-    float horPixelAngle = this->angles.x + x * this->fov.x / this->resolution.x;
-    float verPixelAngle = this->angles.y + y * this->fov.y / this->resolution.y;
+    float horPixelAngle = this->angles.x + (x - resolution.x/2 - 0.5f) * this->fov.x / this->resolution.x;
+    float verPixelAngle = this->angles.y - (y - resolution.y/2 - 0.5f) * this->fov.y / this->resolution.y;
     float horAngle = cos(this->angles.z)*horPixelAngle + sin(this->angles.z)*verPixelAngle;
     float verAngle = sin(this->angles.z)*horPixelAngle + cos(this->angles.z)*verPixelAngle;
 

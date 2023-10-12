@@ -4,8 +4,8 @@
 #include "glm/vec2.hpp"
 #include "glm/common.hpp"
 #include <math.h>
-#define DEG2RAD(x) M_PI*x/180.0f
-#define RAD2DEG(x) x*180.0f/M_PI
+#define DEG2RAD(x) M_PI*(x)/180.0f
+#define RAD2DEG(x) (x)*180.0f/M_PI
 
 class Ray {
     public:
