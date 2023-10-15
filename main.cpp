@@ -8,23 +8,23 @@ int main()
     // Camera with a resolution of 640x480 and fov of 32 degrees by 24 degrees
     Camera cam;
     cam.position = glm::vec3(0.0f, -200.0f, 0.0f);
-    cam.angles = glm::vec3(DEG2RAD(91.0f), DEG2RAD(0.0f), DEG2RAD(0.0f));
+    cam.angles = glm::vec3(DEG2RAD(90.0f), DEG2RAD(0.0f), DEG2RAD(0.0f));
     cam.resolution = glm::vec2(640,480);
     cam.fov = glm::vec2(DEG2RAD(32),DEG2RAD(24));
 
     Plane *planeSet[5];
 
-    planeSet[0] = new Plane(0,0,1,-100);
-    planeSet[1] = new Plane(0,0,-1,-100);
-    planeSet[2] = new Plane(1,0,0,-100);
-    planeSet[3] = new Plane(-1,0,0,-100);
-    planeSet[4] = new Plane(0,-1,0,-1000);
+    planeSet[0] = new Plane(0,0,1,100);
+    planeSet[1] = new Plane(0.5f,0,-1,100);
+    planeSet[2] = new Plane(1,0,0,100);
+    planeSet[3] = new Plane(-1,0,0,100);
+    planeSet[4] = new Plane(0,-1,0,800);
 
     uint8_t image[cam.resolution.x*cam.resolution.y*3];
 
     Ray pixelRay;
     float curDepth; 
-    float minDepth = 25000.0f;
+    float minDepth = MAXFLOAT;
     glm::vec3 intersection;
     float rawPixelVal;
     int ang = 0;
@@ -56,7 +56,7 @@ int main()
             for(int i=0; i<cam.resolution.x; i++)
             {
                 pixelRay = cam.getRayAtPixel(i, j);
-                minDepth = 25000.0f;
+                minDepth = MAXFLOAT;
                 for(int p=0; p<5; p++)
                 {
                     intersection = pixelRay.intersectWithPlane(*planeSet[p]);

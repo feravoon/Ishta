@@ -8,6 +8,10 @@ glm::vec3 Ray::getPosAtRange(float range)
 glm::vec3 Ray::intersectWithPlane(Plane plane)
 {
     float t = (-plane.d - plane.a*initPoint.x - plane.b*initPoint.y - plane.c*initPoint.z) / (plane.a*unitVector.x + plane.b*unitVector.y + plane.c*unitVector.z);
+
+    if(t<=0)
+        t = MAXFLOAT;
+
     return getPosAtRange(t);
 }
 
