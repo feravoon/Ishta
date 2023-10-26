@@ -2,7 +2,7 @@
 #include "Ray.h"
 #include "Plane.h"
 #include "Light.h"
-
+#include <vector>
 struct RaySample
 {
     float depth;
@@ -12,5 +12,5 @@ struct RaySample
 
 class RayTracer {
     public:
-        static RaySample sampleRay(Ray *ray, Plane **planeSet, Light **lightSet);
+        static RaySample sampleRay(Ray &ray, std::vector<Plane> &planeSet, std::vector<Light> &lightSet);
 };

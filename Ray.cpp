@@ -5,7 +5,7 @@ glm::vec3 Ray::getPosAtRange(float range)
     return initPoint + range * unitVector;
 }
 
-glm::vec3 Ray::intersectWithPlane(Plane plane)
+glm::vec3 Ray::intersectWithPlane(Plane &plane)
 {
     float t = (-plane.d - plane.a*initPoint.x - plane.b*initPoint.y - plane.c*initPoint.z) / (plane.a*unitVector.x + plane.b*unitVector.y + plane.c*unitVector.z);
 
@@ -15,7 +15,7 @@ glm::vec3 Ray::intersectWithPlane(Plane plane)
     return getPosAtRange(t);
 }
 
-float Ray::angleToNormalOfPlane(Plane plane)
+float Ray::angleToNormalOfPlane(Plane &plane)
 {
     glm::vec3 normalVectorOfPlane = plane.getNormalVector();
     return acosf(glm::dot(this->unitVector, normalVectorOfPlane));

@@ -52,7 +52,7 @@ Renderer::Renderer(float scale, int resx, int resy)
     }
 
     // creates a window
-    this->win = SDL_CreateWindow("DaMGa", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resx*this->scale, resy*this->scale, SDL_WINDOW_ALLOW_HIGHDPI);
+    this->win = SDL_CreateWindow("IshTa", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resx*this->scale, resy*this->scale, SDL_WINDOW_ALLOW_HIGHDPI);
  
     // triggers the program that controls your graphics hardware and sets flags
     Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;

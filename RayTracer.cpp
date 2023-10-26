@@ -1,6 +1,6 @@
 #include "RayTracer.h"
 
-RaySample RayTracer::sampleRay(Ray *ray, Plane **planeSet, Light **lightSet)
+RaySample RayTracer::sampleRay(Ray &ray, std::vector<Plane> &planeSet, std::vector<Light> &lightSet)
 {
     glm::vec3 intersection, incomingLightVec;
     float curDepth;
@@ -10,8 +10,8 @@ RaySample RayTracer::sampleRay(Ray *ray, Plane **planeSet, Light **lightSet)
 
     for(int p=0; p<5; p++)
     {
-        intersection = ray->intersectWithPlane(*planeSet[p]);
-        curDepth = glm::length(intersection - ray->initPoint);
+        intersection = ray.intersectWithPlane(planeSet[p]);
+        curDepth = glm::length(intersection - ray.initPoint);
         if(curDepth<minDepth)
         {
             minDepth = curDepth;
@@ -19,19 +19,24 @@ RaySample RayTracer::sampleRay(Ray *ray, Plane **planeSet, Light **lightSet)
         }
     }
     
-    intersection = ray->intersectWithPlane(*planeSet[minDepthIndex]);
+    intersection = ray.intersectWithPlane(planeSet[minDepthIndex]);
     
-    incomingLightVec = intersection - lightSet[0]->position;
-    distanceToLight = glm::length(incomingLightVec);
-    incomingLightVec = incomingLightVec/distanceToLight;
-
-    Ray lightRay(lightSet[0]->position, incomingLightVec);
-
     RaySample rs;
-
-    rs.colorIntensity = lightSet[0]->color * lightSet[0]->intensity * -(cosf(lightRay.angleToNormalOfPlane(*planeSet[minDepthIndex]))) / (distanceToLight*distanceToLight);
+    rs.colorIntensity = glm::vec3(0.0f);
     rs.depth = minDepth;
     rs.intersection = intersection;
+
+    for(int i = 0; i < lightSet.size(); i++)
+    {
+        incomingLightVec = intersection - lightSet[i].position;
+        distanceToLight = glm::length(incomingLightVec);
+        incomingLightVec = incomingLightVec/distanceToLight;
+
+        Ray lightRay(lightSet[i].position, incomingLightVec);
+
+        rs.colorIntensity += lightSet[i].color * lightSet[i].intensity * -(cosf(lightRay.angleToNormalOfPlane(planeSet[minDepthIndex]))) / (distanceToLight*distanceToLight);
+    }
+    
 
     return rs;
 }

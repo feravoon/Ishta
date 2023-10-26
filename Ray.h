@@ -11,8 +11,8 @@ class Ray {
     public:
       glm::vec3 initPoint, unitVector;
       glm::vec3 getPosAtRange(float range);
-      glm::vec3 intersectWithPlane(Plane plane);
-      float angleToNormalOfPlane(Plane plane);
+      glm::vec3 intersectWithPlane(Plane &plane);
+      float angleToNormalOfPlane(Plane &plane);
       Ray(glm::vec3 initPoint, glm::vec2 angles);
       Ray(glm::vec3 initPoint, glm::vec3 unitVector);
       Ray();
