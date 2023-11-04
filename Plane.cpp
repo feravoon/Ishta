@@ -20,3 +20,19 @@ glm::vec3 Plane::getNormalVector()
 {
     return glm::normalize(glm::vec3(a, b, c));
 }
+
+glm::vec3 Plane::intersectWithRay(Ray &ray)
+{
+    float t = (-this->d - this->a*ray.initPoint.x - this->b*ray.initPoint.y - this->c*ray.initPoint.z) / (this->a*ray.unitVector.x + this->b*ray.unitVector.y + this->c*ray.unitVector.z);
+
+    if(t<=0)
+        t = MAXFLOAT;
+
+    return ray.getPosAtRange(t);
+}
+
+float Plane::angleBetweenSurfaceNormalAndRay(Ray &ray, glm::vec3 posOnSurface)
+{
+    glm::vec3 normalVectorOfPlane = getNormalVector();
+    return acosf(glm::dot(ray.unitVector, normalVectorOfPlane));
+}

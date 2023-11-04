@@ -16,6 +16,7 @@
                 "Camera.cpp",
                 "Light.cpp",
                 "RayTracer.cpp",
+                " SceneObject.cpp",
                 "-L/opt/homebrew/lib",
                 "-lSDL2",
                 "-I/opt/homebrew/include",

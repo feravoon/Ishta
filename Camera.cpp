@@ -5,7 +5,7 @@ Ray Camera::getRayAtPixel(float x, float y)
     float fx = (resolution.x/2) / tanf(this->fov.x/2);
     float fy = (resolution.y/2) / tanf(this->fov.y/2);
 
-    float horPixelAngle = atan2f((x - resolution.x/2 - 0.5f),fx);
+    float horPixelAngle = atan2f(-(x - resolution.x/2 - 0.5f),fx);
     float verPixelAngle = atan2f(-(y - resolution.y/2 - 0.5f),fy);
 
     // Fish-eye projection

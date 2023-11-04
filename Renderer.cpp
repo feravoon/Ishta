@@ -79,6 +79,9 @@ void black_to_transparent(SDL_Surface *surface, int x, int y)
 void Renderer::render(uint8_t *image, int resx, int resy)
 {
 
+	//SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
+
+
 	SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormatFrom(image, resx, resy, 24, resx*3, SDL_PIXELFORMAT_RGB24);
 	
 	//SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(image, resx, resy, 24, resx*3, SDL_PIXELFORMAT_RGB888);
