@@ -36,3 +36,11 @@ float Plane::angleBetweenSurfaceNormalAndRay(Ray &ray, glm::vec3 posOnSurface)
     glm::vec3 normalVectorOfPlane = getNormalVector();
     return acosf(glm::dot(ray.unitVector, normalVectorOfPlane));
 }
+
+Ray Plane::getReflectedRay(Ray &incidentRay, glm::vec3 posOnSurface)
+{
+    glm::vec3 normalOnSurfacePos = this->getNormalVector();
+    glm::vec3 reflectedUnitVector = incidentRay.unitVector - 2.0f*glm::dot(incidentRay.unitVector, normalOnSurfacePos) * normalOnSurfacePos;
+
+    return Ray(posOnSurface+0.001f*reflectedUnitVector, reflectedUnitVector);
+}

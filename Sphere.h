@@ -9,4 +9,5 @@ class Sphere : public SceneObject{
         float angleBetweenSurfaceNormalAndRay(Ray &ray, glm::vec3 posOnSurface);
         Sphere();
         Sphere(float centerx, float centery, float centerz, float radius);
+        Ray getReflectedRay(Ray &incidentRay, glm::vec3 posOnSurface);
 };

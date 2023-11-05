@@ -9,5 +9,6 @@ class Plane : public SceneObject {
         glm::vec3 getNormalVector();
         glm::vec3 intersectWithRay(Ray &ray);
         float angleBetweenSurfaceNormalAndRay(Ray &ray, glm::vec3 posOnSurface);
-        Plane(glm::vec3 x0,glm::vec3 x1,glm::vec3 x2);
+        Ray getReflectedRay(Ray &incidentRay, glm::vec3 posOnSurface);
+        Plane(glm::vec3 x0, glm::vec3 x1, glm::vec3 x2);
 };
