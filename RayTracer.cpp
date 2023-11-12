@@ -2,9 +2,6 @@
 
 RaySample RayTracer::sampleRay(Ray &ray, std::vector<std::shared_ptr<SceneObject>> &sceneObjectSet, std::vector<Light> &lightSet)
 {
-    glm::vec3 incomingLightVec;
-    float distanceToLight;
-
     // Check intersection with every object in the scene
     IntersectionData intersectionResult;
     intersectionResult = getClosestIntersection(ray, sceneObjectSet);
@@ -18,24 +15,29 @@ RaySample RayTracer::sampleRay(Ray &ray, std::vector<std::shared_ptr<SceneObject
     if(rs.closestObjectIndex == -1)
         return rs;
 
+    glm::vec3 incomingLightVec;
+    float distanceToLight;
+    glm::vec3 diffuseColor = sceneObjectSet[intersectionResult.minDepthIndex]->material.diffuse;
     IntersectionData lightIntersectionResult;
+    
     for(int i = 0; i < lightSet.size(); i++)
     {
         incomingLightVec = intersectionResult.closestIntersection - lightSet[i].position;
         distanceToLight = glm::length(incomingLightVec);
-        incomingLightVec = incomingLightVec/distanceToLight;
+        incomingLightVec = incomingLightVec/distanceToLight; // normalization
 
-        Ray lightRay(lightSet[i].position, incomingLightVec);
+        Ray lightRay(lightSet[i].position, incomingLightVec); // Create a ray of light
+        
+        // Check if the intersection point is in the shadow (i.e. light ray intersects something closer, thus blocking the light)
         lightIntersectionResult = getClosestIntersection(lightRay, sceneObjectSet);
-
         if(glm::length(intersectionResult.closestIntersection - lightIntersectionResult.closestIntersection)>0.1f)
             continue;
-        
 
         float angleBetweenSurfaceNormalAndRay = sceneObjectSet[intersectionResult.minDepthIndex]->angleBetweenSurfaceNormalAndRay(lightRay, intersectionResult.closestIntersection) + M_PI;
-        float reflectionCoeff = cosf(angleBetweenSurfaceNormalAndRay);
-
-        rs.colorIntensity += lightSet[i].color * lightSet[i].intensity * reflectionCoeff / (distanceToLight*distanceToLight);
+        float reflectionCoeff = cosf(angleBetweenSurfaceNormalAndRay); // Lambertian model
+        
+        // Add the reflected color intensity from this light to total intensity
+        rs.colorIntensity += diffuseColor * lightSet[i].color * lightSet[i].intensity * reflectionCoeff / (distanceToLight*distanceToLight);
     }
 
     return rs;

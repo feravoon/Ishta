@@ -24,7 +24,7 @@ int main()
     lightSet[0].position = glm::vec3(-100.0f, -200.0f, 100.0f);
 
     lightSet[1].intensity = 20000;
-    lightSet[1].color = glm::vec3(1.0f, 1.0f, 1.0f);
+    lightSet[1].color = glm::vec3(0.0f, 1.0f, 0.0f);
     lightSet[1].position = glm::vec3(0.0f, 600.0f, 100.0f);
 
     std::vector<std::shared_ptr<SceneObject>> sceneObjectSet(4);
@@ -32,23 +32,29 @@ int main()
     //std::vector<SceneObject> sceneObjectSet(7);
 
     sceneObjectSet[0] = std::make_shared<Plane>( 0,  0,  1, 100);
+    sceneObjectSet[0]->material.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
     //sceneObjectSet[1] = std::make_shared<Plane>( 0,  0, -1, 100);
     //sceneObjectSet[2] = std::make_shared<Plane>( 1,  0,  0, 100);
     //sceneObjectSet[3] = std::make_shared<Plane>(-1,  0,  0, 100);
     //sceneObjectSet[4] = std::make_shared<Plane>( 0, -1,  0, 200);
 
     sceneObjectSet[1] = std::make_shared<Sphere>(0.0f, 0.0f, -50.0f, 50.0f);
+    sceneObjectSet[1]->material.diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
+
     sceneObjectSet[2] = std::make_shared<Sphere>(-54.0f, -90.0f, -76.0f, 24.0f);
+    sceneObjectSet[2]->material.diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
+
     sceneObjectSet[3] = std::make_shared<Sphere>(50.0f, -70.0f, -82.0f, 18.0f);
+    sceneObjectSet[3]->material.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
 
     uint8_t image[cam.resolution.x*cam.resolution.y*3];
 
-    Ray pixelRay, secondRay, thirdRay;
+    Ray pixelRay, secondRay, thirdRay, fourthRay;
     RaySample rs, rs2, rs3;    
 
     glm::vec3 rawPixelVal;
-    int ang = 0;
-    float angRad = 0;
+    //int ang = 0;
+    //float angRad = 0;
 
     float renderScale = 0.5f;
     
@@ -64,14 +70,14 @@ int main()
                 break;
             }
         }
-        angRad = DEG2RAD(ang);
+        //angRad = DEG2RAD(ang);
 
         //cam.angles.z = DEG2RAD(0.0f + 3*cosf(angRad));
         //cam.angles.x = DEG2RAD(90.0f + 3*sinf(angRad));
 
-        ang+=10;
-        if(ang>=360)
-            ang = 0;
+        //ang+=10;
+        //if(ang>=360)
+        //    ang = 0;
 
         //lightSet[0].position.x = -100.0f + 30*sinf(angRad);
         //lightSet[0].position.z =  100.0f + 30*cosf(angRad);
@@ -104,7 +110,7 @@ int main()
                 rawPixelVal.b = glm::clamp(rawPixelVal.b,0.0f,255.0f);
 
                 // Write colors to image matrix
-                image[j*cam.resolution.x*3 + i*3]     = (uint8_t)(rawPixelVal.r);
+                image[j*cam.resolution.x*3 + i*3] = (uint8_t)(rawPixelVal.r);
                 image[j*cam.resolution.x*3 + i*3 + 1] = (uint8_t)(rawPixelVal.g);
                 image[j*cam.resolution.x*3 + i*3 + 2] = (uint8_t)(rawPixelVal.b);
             }

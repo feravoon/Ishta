@@ -47,5 +47,5 @@ Ray Sphere::getReflectedRay(Ray &incidentRay, glm::vec3 posOnSurface)
     glm::vec3 normalOnSurfacePos =  glm::normalize(posOnSurface - this->center);
     glm::vec3 reflectedUnitVector = incidentRay.unitVector - 2*glm::dot(incidentRay.unitVector, normalOnSurfacePos) * normalOnSurfacePos;
 
-    return Ray(posOnSurface+0.001f*reflectedUnitVector, reflectedUnitVector);
+    return Ray(posOnSurface+0.01f*reflectedUnitVector, reflectedUnitVector);
 }
