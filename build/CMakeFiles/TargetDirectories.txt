@@ -1,0 +1,4 @@
+/Users/ahmetcakiroglu/Codes/Ishta_cmake/build/CMakeFiles/mainLib.dir
+/Users/ahmetcakiroglu/Codes/Ishta_cmake/build/CMakeFiles/IshTaApp.dir
+/Users/ahmetcakiroglu/Codes/Ishta_cmake/build/CMakeFiles/edit_cache.dir
+/Users/ahmetcakiroglu/Codes/Ishta_cmake/build/CMakeFiles/rebuild_cache.dir
