@@ -38,6 +38,23 @@ RaySample RayTracer::sampleRay(Ray &ray, std::vector<std::shared_ptr<SceneObject
         
         // Add the reflected color intensity from this light to total intensity
         rs.colorIntensity += diffuseColor * lightSet[i].color * lightSet[i].intensity * reflectionCoeff / (distanceToLight*distanceToLight);
+        
+    }
+    rs.diffuseRef = diffuseColor;
+    return rs;
+}
+
+RaySample RayTracer::recursiveSampleRay(Ray &ray, std::vector<std::shared_ptr<SceneObject>> &sceneObjectSet, std::vector<Light> &lightSet, uint32_t jumpsLeft)
+{
+    RaySample rs = sampleRay(ray, sceneObjectSet, lightSet);
+    glm::vec3 colorIntensity = rs.colorIntensity;
+    glm::vec3 diffuseRef = rs.diffuseRef;
+
+    if(rs.closestObjectIndex!=-1 & jumpsLeft>0)
+    {
+        Ray secondRay = sceneObjectSet[rs.closestObjectIndex]->getReflectedRay(ray, rs.intersection);
+        rs = recursiveSampleRay(secondRay,sceneObjectSet,lightSet,jumpsLeft-1);
+        rs.colorIntensity = colorIntensity + 0.5f*rs.colorIntensity;//*diffuseRef;
     }
 
     return rs;

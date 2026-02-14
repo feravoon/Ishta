@@ -8,19 +8,24 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Camera.cpp" "CMakeFiles/mainLib.dir/Camera.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Camera.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Light.cpp" "CMakeFiles/mainLib.dir/Light.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Light.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Material.cpp" "CMakeFiles/mainLib.dir/Material.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Material.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Plane.cpp" "CMakeFiles/mainLib.dir/Plane.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Plane.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Ray.cpp" "CMakeFiles/mainLib.dir/Ray.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Ray.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/RayTracer.cpp" "CMakeFiles/mainLib.dir/RayTracer.cpp.o" "gcc" "CMakeFiles/mainLib.dir/RayTracer.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Renderer.cpp" "CMakeFiles/mainLib.dir/Renderer.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Renderer.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/SceneObject.cpp" "CMakeFiles/mainLib.dir/SceneObject.cpp.o" "gcc" "CMakeFiles/mainLib.dir/SceneObject.cpp.o.d"
-  "/Users/ahmetcakiroglu/Codes/Ishta_cmake/Sphere.cpp" "CMakeFiles/mainLib.dir/Sphere.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Sphere.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Camera.cpp" "CMakeFiles/mainLib.dir/Camera.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Camera.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Light.cpp" "CMakeFiles/mainLib.dir/Light.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Light.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Material.cpp" "CMakeFiles/mainLib.dir/Material.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Material.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Plane.cpp" "CMakeFiles/mainLib.dir/Plane.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Plane.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/RandomGenerator.cpp" "CMakeFiles/mainLib.dir/RandomGenerator.cpp.o" "gcc" "CMakeFiles/mainLib.dir/RandomGenerator.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Ray.cpp" "CMakeFiles/mainLib.dir/Ray.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Ray.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/RayTracer.cpp" "CMakeFiles/mainLib.dir/RayTracer.cpp.o" "gcc" "CMakeFiles/mainLib.dir/RayTracer.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Renderer.cpp" "CMakeFiles/mainLib.dir/Renderer.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Renderer.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/SceneObject.cpp" "CMakeFiles/mainLib.dir/SceneObject.cpp.o" "gcc" "CMakeFiles/mainLib.dir/SceneObject.cpp.o.d"
+  "/Users/ahmet/Codes/Ishta/Sphere.cpp" "CMakeFiles/mainLib.dir/Sphere.cpp.o" "gcc" "CMakeFiles/mainLib.dir/Sphere.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
 set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

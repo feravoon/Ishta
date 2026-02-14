@@ -17,6 +17,8 @@ Renderer::Renderer(float scale, int resx, int resy)
     // triggers the program that controls your graphics hardware and sets flags
     Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
  
+    //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"); // bilinear
+
     // creates a renderer to render our images
     this->rend = SDL_CreateRenderer(win, -1, render_flags);
 
@@ -47,6 +49,7 @@ void Renderer::render(uint8_t *image, int resx, int resy)
 	//SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(image, resx, resy, 24, resx*3, SDL_PIXELFORMAT_RGB888);
 
     this->tex = SDL_CreateTextureFromSurface(rend, surface);
+    //SDL_SetTextureScaleMode(tex, SDL_ScaleModeBest);
     SDL_FreeSurface(surface);
 
     // set the background color

@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/mainLib.dir/Material.cpp.o.d"
   "CMakeFiles/mainLib.dir/Plane.cpp.o"
   "CMakeFiles/mainLib.dir/Plane.cpp.o.d"
+  "CMakeFiles/mainLib.dir/RandomGenerator.cpp.o"
+  "CMakeFiles/mainLib.dir/RandomGenerator.cpp.o.d"
   "CMakeFiles/mainLib.dir/Ray.cpp.o"
   "CMakeFiles/mainLib.dir/Ray.cpp.o.d"
   "CMakeFiles/mainLib.dir/RayTracer.cpp.o"

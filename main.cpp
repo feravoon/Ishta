@@ -14,8 +14,8 @@ int main()
     Camera cam;
     cam.position = glm::vec3(0.0f, -500.0f, 0.0f);
     cam.angles = glm::vec3(DEG2RAD(90.0f), DEG2RAD(-7.0f), DEG2RAD(0.0f));
-    cam.resolution = glm::vec2(2*640,2*480);
-    cam.fov = glm::vec2(DEG2RAD(32),DEG2RAD(24));
+    cam.resolution = glm::vec2(2*640, 2*480);
+    cam.fov = glm::vec2(DEG2RAD(32), DEG2RAD(24));
     cam.exposure = 2.0f;
 
     std::vector<Light> lightSet(2);
@@ -24,10 +24,10 @@ int main()
     lightSet[0].position = glm::vec3(-100.0f, -200.0f, 100.0f);
 
     lightSet[1].intensity = 20000;
-    lightSet[1].color = glm::vec3(0.0f, 1.0f, 0.0f);
+    lightSet[1].color = glm::vec3(0.0f, 0.0f, 1.0f);
     lightSet[1].position = glm::vec3(0.0f, 600.0f, 100.0f);
 
-    std::vector<std::shared_ptr<SceneObject>> sceneObjectSet(4);
+    std::vector<std::shared_ptr<SceneObject>> sceneObjectSet(5);
     //std::vector<SceneObject*> sceneObjectSet(7);
     //std::vector<SceneObject> sceneObjectSet(7);
 
@@ -47,37 +47,70 @@ int main()
     sceneObjectSet[3] = std::make_shared<Sphere>(50.0f, -70.0f, -82.0f, 18.0f);
     sceneObjectSet[3]->material.diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
 
+    std::shared_ptr<Sphere> s4 = std::make_shared<Sphere>(0.0f, -70.0f, -86.0f, 14.0f);
+    sceneObjectSet[4] = s4;
+    sceneObjectSet[4]->material.diffuse = glm::vec3(1.0f, 1.0f, 0.0f);
+
     uint8_t image[cam.resolution.x*cam.resolution.y*3];
 
-    Ray pixelRay, secondRay, thirdRay, fourthRay;
-    RaySample rs, rs2, rs3;    
+    Ray pixelRay;
+    RaySample rs;    
 
     glm::vec3 rawPixelVal;
-    //int ang = 0;
-    //float angRad = 0;
+    int ang = 0;
+    float angRad = 0;
 
     float renderScale = 0.5f;
     
     Renderer renderer(renderScale, cam.resolution.x, cam.resolution.y);
 
     SDL_Event event;
+    const Uint8* keystate;
+
     while (true) {
         // Events management
         if(SDL_PollEvent(&event))
         {
+            keystate = SDL_GetKeyboardState(NULL);
             if(event.type == SDL_QUIT)
             {
                 break;
             }
         }
-        //angRad = DEG2RAD(ang);
+
+        if(keystate[SDL_SCANCODE_UP] | keystate[SDL_SCANCODE_W])
+        {
+            s4.get()->center.y += 1.0f; 
+        }
+        if(keystate[SDL_SCANCODE_DOWN] | keystate[SDL_SCANCODE_S])
+        {
+            s4.get()->center.y -= 1.0f; 
+        }
+        if(keystate[SDL_SCANCODE_LEFT] | keystate[SDL_SCANCODE_A])
+        {
+            s4.get()->center.x -= 1.0f; 
+        }
+        if(keystate[SDL_SCANCODE_RIGHT] | keystate[SDL_SCANCODE_D])
+        {
+            s4.get()->center.x += 1.0f; 
+        }
+        if(keystate[SDL_SCANCODE_Z])
+        {
+            s4.get()->center.z -= 1.0f; 
+        }
+        if(keystate[SDL_SCANCODE_X])
+        {
+            s4.get()->center.z += 1.0f; 
+        }
+
+        angRad = DEG2RAD(ang);
 
         //cam.angles.z = DEG2RAD(0.0f + 3*cosf(angRad));
         //cam.angles.x = DEG2RAD(90.0f + 3*sinf(angRad));
 
-        //ang+=10;
-        //if(ang>=360)
-        //    ang = 0;
+        ang+=10;
+        if(ang>=360)
+            ang = 0;
 
         //lightSet[0].position.x = -100.0f + 30*sinf(angRad);
         //lightSet[0].position.z =  100.0f + 30*cosf(angRad);
@@ -90,20 +123,9 @@ int main()
             for(int i=0; i<cam.resolution.x; i++)
             {
                 pixelRay = cam.getRayAtPixel(i, j); // Shoot a ray from the pixel
-                rs = RayTracer::sampleRay(pixelRay, sceneObjectSet, lightSet); // Get color sample from the scene
-                if(rs.closestObjectIndex!=-1)
-                {
-                    secondRay = sceneObjectSet[rs.closestObjectIndex]->getReflectedRay(pixelRay, rs.intersection);
-                    rs2 = RayTracer::sampleRay(secondRay, sceneObjectSet, lightSet);
-                        if(rs2.closestObjectIndex!=-1)
-                        {
-                            thirdRay = sceneObjectSet[rs2.closestObjectIndex]->getReflectedRay(secondRay, rs2.intersection);
-                            rs3 = RayTracer::sampleRay(thirdRay, sceneObjectSet, lightSet);
-                        }
-                }
+                rs = RayTracer::recursiveSampleRay(pixelRay, sceneObjectSet, lightSet, 3);
+                rawPixelVal = 255.0f * cam.exposure * rs.colorIntensity;
                 
-                rawPixelVal = 255.0f * cam.exposure * (1.0f*rs.colorIntensity + 0.5f*rs2.colorIntensity + 0.25f*rs3.colorIntensity); // Scale the color intensity for an image with 8-bit per channel
-
                 // Clamp the color values
                 rawPixelVal.r = glm::clamp(rawPixelVal.r,0.0f,255.0f);
                 rawPixelVal.g = glm::clamp(rawPixelVal.g,0.0f,255.0f);
